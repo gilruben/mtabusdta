@@ -1,0 +1,4 @@
+*.pyc
+__pycache__
+bus_scraper
+.cache
