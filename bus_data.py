@@ -1,5 +1,24 @@
 import requests, json
 
+# Receives a string representing an MTA bus name. ex: q23, q44, m60 (is not
+# case sensitive).
+# Returns a dictionary with data pertaining to that bus.
+#
+# If the bus given as argument matches an existing bus, the function will return
+# the bus name, routeId, and a list of directions in which the bus can go. Each
+# direction is a dictionary containing the destination(final stop) and
+# directionId.
+#
+# If the bus given as argument does not match an existing bus, the bustime
+# api will attempt to give suggestions. If suggestions are available, the
+# function will return a dictionary with a list of the suggested bus data. Each
+# bus data in the list will be formatted the same way as when a matching bus is
+# found by the function.
+#
+# If the bus has no matching data or suggestions, a dictionary with key 'empty'
+# and value True is returned.
+#
+# ALL RETURNS HAVE AN 'empty' KEY THAT SIGNALS WHETHER DATA WAS FOUND OR NOT.
 def get_bus_data(bus):
     # Takes a dictionary containing bus data from the matches list or the
     # the suggestions list. Both the matches and suggestions lists can be found
