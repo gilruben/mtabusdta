@@ -59,3 +59,14 @@ def test_get_bus_stops():
 
     assert type(stops['stops']) == list
     assert len(stops['stops']) > 0
+
+
+# Test get_bus_stops function with a invalid routeId
+# Returns a dictionary with an empty list and an error string
+def test_get_bus_stops_bad_arguments():
+        stops = get_bus_stops('MTA NYCT_Q', 1)
+
+        assert len(stops.keys()) == 2
+        assert type(stops['stops']) == list
+        assert len(stops['stops']) == 0
+        assert stops['error'] == 'routeId is not valid'
