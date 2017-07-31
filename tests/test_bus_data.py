@@ -1,4 +1,4 @@
-from ..bus_data import get_bus_data
+from ..bus_data import get_bus_data, get_bus_stops
 
 # Test get_bus_data function with a valid MTA bus as argument
 def test_get_bus_data_valid_arg():
@@ -49,3 +49,13 @@ def test_get_bus_data_no_mathches_no_suggestions():
     assert len(bus_data.keys()) == 1
     assert bus_data['empty'] == True
     assert type(bus_data['empty']) == bool
+
+
+# Test get_bus_stops function with a valid routeId and directionId
+# Returns a dictionary with a list of all the stops for the given routeId and
+# directionId
+def test_get_bus_stops():
+    stops = get_bus_stops('MTA NYCT_Q16', 1)
+
+    assert type(stops['stops']) == list
+    assert len(stops['stops']) > 0
