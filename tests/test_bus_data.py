@@ -16,6 +16,7 @@ def test_get_bus_data_valid_arg():
     assert type(bus_data["routeId"]) == str
     assert type(bus_data["bus"]) == str
 
+
 # Test get_bus_data function with a invalid bus as argument.
 # Returns a dictionary with a list of suggestions.
 def test_get_bus_data_suggestions():
@@ -63,10 +64,21 @@ def test_get_bus_stops():
 
 # Test get_bus_stops function with a invalid routeId
 # Returns a dictionary with an empty list and an error string
-def test_get_bus_stops_bad_arguments():
+def test_get_bus_stops_bad_routeId():
         stops = get_bus_stops('MTA NYCT_Q', 1)
 
         assert len(stops.keys()) == 2
         assert type(stops['stops']) == list
         assert len(stops['stops']) == 0
         assert stops['error'] == 'routeId is not valid'
+
+
+# Test get_bus_stops function with a invalid directionId
+# Returns a dictionary with an empty list and an error string
+def test_get_bus_stops_bad_directionId():
+        stops = get_bus_stops('MTA NYCT_Q16', 9)
+
+        assert len(stops.keys()) == 2
+        assert type(stops['stops']) == list
+        assert len(stops['stops']) == 0
+        assert stops['error'] == 'directionId is not valid'
