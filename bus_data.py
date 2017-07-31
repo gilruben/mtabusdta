@@ -57,3 +57,25 @@ def get_bus_data(bus):
         return bus_data
     else:
         return { 'empty': True }
+
+
+
+def get_bus_stops(routeId, directionId):
+    stops = { 'stops': [] }
+
+    if  directionId != 0 and directionId != 1:
+        stops['error'] = 'directionId is not valid'
+        return stops
+
+
+    routeId = routeId.replace(' ', '+')
+    url = 'http://bustime.mta.info/api/stops-on-route-for-direction?routeId=' + routeId + '&directionId=' + str(directionId)
+    response = requests.get(url)
+
+
+    try:
+        stops = response.json()
+    except ValueError:
+        stops['error'] = 'routeId is not valid'
+
+    return stops
