@@ -55,3 +55,5 @@ def get_bus_data(bus):
         bus_data['suggestions'] = map(compact_bus_data, suggestions)
 
         return bus_data
+    else:
+        return { 'empty': True }
