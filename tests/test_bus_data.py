@@ -15,3 +15,26 @@ def test_get_bus_data_valid_arg():
     assert type(bus_data["directions"][0]["directionId"]) == int
     assert type(bus_data["routeId"]) == str
     assert type(bus_data["bus"]) == str
+
+# Test get_bus_data function with a invalid bus as argument.
+# Returns a dictionary with a list of suggestions.
+def test_get_bus_data_suggestions():
+    bus_data = get_bus_data('q20')
+
+    assert len(bus_data.keys()) == 2
+    assert type(bus_data['suggestions']) == list
+    assert len(bus_data['suggestions']) > 0
+
+    # The first element in the suggested data list
+    suggested_data = bus_data['suggestions'][0]
+
+    assert type(suggested_data["directions"]) == list
+    assert len(suggested_data["directions"]) == 2
+    assert type(suggested_data["directions"][0]) == dict
+    assert type(suggested_data["directions"][0]["destination"]) == str
+    assert type(suggested_data["directions"][0]["directionId"]) == int
+    assert type(suggested_data["directions"][1]) == dict
+    assert type(suggested_data["directions"][0]["destination"]) == str
+    assert type(suggested_data["directions"][0]["directionId"]) == int
+    assert type(suggested_data["routeId"]) == str
+    assert type(suggested_data["bus"]) == str
