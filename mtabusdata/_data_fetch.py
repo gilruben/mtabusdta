@@ -83,7 +83,7 @@ def get_bus_data(bus):
 # Returns a dictionary containing a list of all the stops for the given routeId
 #
 # If an incorrect routeId or directionId is supplied, the dictionary returned
-# will contain an empty list of stops and a string representing an error message 
+# will contain an empty list of stops and a string representing an error message
 def get_bus_stops(routeId, directionId):
     stops = { 'stops': [] }
 
