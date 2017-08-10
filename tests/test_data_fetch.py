@@ -1,4 +1,4 @@
-from ..bus_data import get_bus_data, get_bus_stops
+from ..mtabusdata._data_fetch import get_bus_data, get_bus_stops
 
 # Test get_bus_data function with a valid MTA bus as argument
 def test_get_bus_data_valid_arg():
