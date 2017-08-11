@@ -1,7 +1,6 @@
 from pytest import raises
 from ..mtabusdata.entities import Bus
 
-# Test Bus name
 class TestBusName():
     # Test a valid bus name
     def test_name(self):
@@ -60,3 +59,16 @@ class TestBusInitialization():
         assert type(new_bus.directions[0]["destination"]) == str
         assert type(new_bus.directions[0]["directionId"]) == int
         assert type(new_bus.routeId) == str
+
+
+class TestBusGetStops():
+    def test_get_stops(self):
+        new_bus = Bus('Q23')
+        stops = new_bus.get_stops()
+
+        assert type(stops) == dict
+        assert len(stops.keys()) == 2
+        assert type(stops['directionId']) == int
+        assert stops['directionId'] == 0
+        assert type(stops['stops']) == list
+        assert len(stops['stops']) > 0
