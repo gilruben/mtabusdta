@@ -1,4 +1,4 @@
-from _data_fetch import get_bus_data
+from _data_fetch import get_bus_data, get_bus_stops
 
 class Bus():
     def __init__(self, name = '', directionId = 0):
@@ -23,3 +23,25 @@ class Bus():
             self.name = name.upper()
             self.directions = data['directions']
             self.routeId = data['routeId']
+
+
+    def get_stops(self):
+        # Will catch the error thrown if stops is not an attribute of self.
+        try:
+            # If stops were previously saved, and those stops correspond to the
+            # directionId saved, return the stops.
+            if self.stops and (self.stops.directionId == self.directionId):
+                return self.stops
+        except AttributeError:
+            pass
+
+        # If no stops were previously saved or if the saved stops do not
+        # correspond to the saved directionId, get and save stop data from
+        # bustime api.
+        stops = get_bus_stops(self.routeId, self.directionId)['stops']
+        self.stops = {
+          'directionId': self.directionId,
+          'stops': stops
+        }
+
+        return self.stops
