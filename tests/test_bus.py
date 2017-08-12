@@ -7,6 +7,13 @@ class TestBusName():
         new_bus = Bus('Q23')
         assert new_bus.name == 'Q23'
 
+    # Test editing name property of a bus instance
+    def test_edit_bus_name(self):
+        new_bus = Bus('Q23')
+        new_bus.name = 'Q34'
+        # User should not be able to edit the name property
+        assert new_bus.name == 'Q23'
+
     # Test an invalid bus name
     def test_invalid_name(self):
         with raises(ValueError):
