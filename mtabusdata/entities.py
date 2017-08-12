@@ -25,6 +25,21 @@ class Bus():
             self.routeId = data['routeId']
 
 
+    @property
+    def directionId(self):
+        return self._directionId
+
+    @directionId.setter
+    def directionId(self, directionId):
+        if type(directionId) != int:
+            # Checks that directionId is either 0 or 1, othewise an error is thrown
+            raise TypeError('directionId must an int')
+        elif directionId != 0 and directionId != 1:
+            raise ValueError('directionId must be 0 or 1')
+        else:
+            self._directionId = directionId
+
+
     def get_stops(self):
         # Will catch the error thrown if stops is not an attribute of self.
         try:
