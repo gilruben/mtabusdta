@@ -1,6 +1,6 @@
 from _data_fetch import get_bus_data, get_bus_stops
 
-class Bus():
+class Bus(object):
     def __init__(self, name = '', directionId = 0):
         data = get_bus_data(name)
         is_empty = data.get('empty')
@@ -20,11 +20,12 @@ class Bus():
             raise ValueError('directionId must be 0 or 1')
         else:
             self.directionId = directionId
-            self.name = name.upper()
+            self._name = name.upper()
             self.directions = data['directions']
             self.routeId = data['routeId']
 
 
+    # Getter and Setters for directionId property
     @property
     def directionId(self):
         return self._directionId
@@ -38,6 +39,16 @@ class Bus():
             raise ValueError('directionId must be 0 or 1')
         else:
             self._directionId = directionId
+
+
+    # Getter and Setter for name property
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        pass
 
 
     def get_stops(self):
