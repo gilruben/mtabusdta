@@ -21,7 +21,7 @@ class Bus(object):
         else:
             self.directionId = directionId
             self._name = name.upper()
-            self.directions = data['directions']
+            self._directions = data['directions']
             self.routeId = data['routeId']
 
 
@@ -48,6 +48,16 @@ class Bus(object):
 
     @name.setter
     def name(self, name):
+        pass
+
+
+    # Getter and Setter for directions property
+    @property
+    def directions(self):
+        return self._directions
+
+    @name.setter
+    def name(self, directions):
         pass
 
 
