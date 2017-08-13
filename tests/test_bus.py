@@ -7,13 +7,6 @@ class TestBusName():
         new_bus = Bus('Q23')
         assert new_bus.name == 'Q23'
 
-    # Test editing name property of a bus instance
-    def test_edit_bus_name(self):
-        new_bus = Bus('Q23')
-        new_bus.name = 'Q34'
-        # User should not be able to edit the name property
-        assert new_bus.name == 'Q23'
-
     # Test an invalid bus name
     def test_invalid_name(self):
         with raises(ValueError):
@@ -49,6 +42,16 @@ class TestBusDirectionId():
     def test_directionId_incorrect_type(self):
         with raises(TypeError):
             raise Bus('Q23', '9')
+
+
+# Test that certain properties of Bus class cannot change
+class TestPropsCanNotChange():
+    # Test editing name property of a bus instance
+    def test_edit_bus_name(self):
+        new_bus = Bus('Q23')
+        new_bus.name = 'Q34'
+        # User should not be able to edit the name property
+        assert new_bus.name == 'Q23'
 
 
 class TestBusInitialization():
