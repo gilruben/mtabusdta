@@ -53,6 +53,13 @@ class TestPropsCanNotChange():
         # User should not be able to edit the name property
         assert new_bus.name == 'Q23'
 
+    def test_edit_bus_routeId(self):
+        new_bus = Bus('Q23')
+        new_bus.routeId = 'MTABC_Q66'
+        # User should not be able to edit the routeId property
+        assert new_bus.routeId == 'MTABC_Q23'
+
+
 
 class TestBusInitialization():
     def test_bus(self):
