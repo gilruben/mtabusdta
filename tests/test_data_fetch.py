@@ -1,3 +1,4 @@
+from pytest import raises
 from ..mtabusdata._data_fetch import get_bus_data, get_bus_stops, get_stop_data
 
 
@@ -148,3 +149,10 @@ class TestGetStopData():
 
         assert type(stop_data) == dict
         assert stop_data['error'] == 'Stop id is not valid'
+
+
+    # Test get_stop_data with a non string argument.
+    # Should raise a TypeError.
+    def test_get_stop_data_nonstring_arg(self):
+        with raises(TypeError):
+            raise(get_stop_data(123))
