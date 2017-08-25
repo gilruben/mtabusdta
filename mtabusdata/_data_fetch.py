@@ -103,3 +103,81 @@ def get_bus_stops(routeId, directionId):
         stops['error'] = 'routeId is not valid'
 
     return stops
+
+
+# Receives a string representing the stop id
+# Returns a dictionary with data about the stop
+def get_stop_data(stop_id):
+    if type(stop_id) != str:
+        raise TypeError('Stop id must be a string')
+
+    stop_data = {}
+    url = 'http://bustime.mta.info/api/stop-for-id?stopId=' + stop_id
+    response = requests.get(url)
+
+    try:
+        data = response.json()
+
+        # Extracts specific fields from a dictionary containing bus data
+        # Returns a new dictionary with data about the bus
+        def extract_bus_data(bus_data):
+            data = bus_data['MonitoredVehicleJourney']
+            location = data['VehicleLocation']
+
+            return {
+              'bearing': data['Bearing'],
+              'destination': str(data['DestinationName']),
+              'destination_id': str(data['DestinationRef']),
+              'direction_id': int(data['DirectionRef']),
+              'route_id': str(data['LineRef']),
+              'operator_id': str(data['OperatorRef']),
+              'origin_id': str(data['OriginRef']),
+              'progress_rate': str(data['ProgressRate']),
+              'bus_name': str(data['PublishedLineName']),
+              'location': {
+                'latitude': location['Latitude'],
+                'longitude': location['Longitude']
+              }
+            }
+
+
+        # Extracts specific fields from a dictionary containing situation data.
+        # Returns a new dictionary with data about the situation
+        def extract_situation_data(situation_data):
+            return {
+              'consequences': situation_data['Consequences']['Consequence'],
+              'start_time': str(situation_data['PublicationWindow']['StartTime']),
+              'description': str(situation_data['Description']),
+              'severity': str(situation_data['Severity']),
+              'situation_number': str(situation_data['SituationNumber'])
+            }
+
+
+        service_data = data['siri']['Siri']['ServiceDelivery']
+        timestamp = str(service_data['ResponseTimestamp'])
+        buses = service_data['StopMonitoringDelivery'][0]['MonitoredStopVisit']
+        stop_info = data['stop']
+
+        situations = service_data['SituationExchangeDelivery']
+
+        try:
+            situations = situations[0]['Situations']['PtSituationElement']
+        except IndexError:
+            pass
+
+
+        stop_data['timestamp'] = timestamp
+        stop_data['next_buses'] = map(extract_bus_data, buses)
+        stop_data['situations'] = map(extract_situation_data, situations)
+        stop_data['stop'] = {
+          'id': str(stop_info['id']),
+          'latitude': stop_info['latitude'],
+          'longitude': stop_info['longitude'],
+          'name': str(stop_info['name']),
+          'direction': str(stop_info['stopDirection'])
+        }
+
+    except ValueError:
+        return { 'error': 'Stop id is not valid' }
+
+    return stop_data
