@@ -8,19 +8,19 @@ class TestStopId():
         assert new_stop.stop_id == 'MTA_501248'
 
 
-class TestChangingProperties():
-    # Test changing stop_id
-    # Should not able to change the original stop id.
-    def test_change_stop_id(self):
+class TestReassigningProperties():
+    # Test reassigning stop_id
+    # Should not able to reassign the original stop id.
+    def test_reassign_stop_id(self):
         new_stop = Stop('MTA_501248')
         new_stop.stop_id = 'MTA_550943'
 
         assert new_stop.stop_id == 'MTA_501248'
 
 
-    # Test changing timestamp.
-    # Should not able to change the original timestamp.
-    def test_change_timestamp(self):
+    # Test reassigning timestamp.
+    # Should not able to reassign the original timestamp.
+    def test_reassign_timestamp(self):
         new_stop = Stop('MTA_501248')
         savedTimestamp = new_stop.timestamp
         new_stop.timestamp = '131312344'
