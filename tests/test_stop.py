@@ -35,7 +35,7 @@ class TestReassigningProperties():
         next_buses = new_stop.next_buses
 
         assert next_buses is not new_stop.next_buses
-
+        assert next_buses[0] is not new_stop.next_buses[0]
 
     # Test reassigning stop_info.
     # Should not able to reassign the original stop_info.
