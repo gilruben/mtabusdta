@@ -26,3 +26,12 @@ class TestReassigningProperties():
         new_stop.timestamp = '131312344'
 
         assert new_stop.timestamp == savedTimestamp
+
+
+    # Test reassigning next_buses.
+    # Should not able to reassign the original next_buses.
+    def test_reassign_next_buses(self):
+        new_stop = Stop('MTA_501248')
+        next_buses = new_stop.next_buses
+
+        assert next_buses is not new_stop.next_buses
