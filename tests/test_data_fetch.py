@@ -1,4 +1,4 @@
-from ..mtabusdata._data_fetch import get_bus_data, get_bus_stops
+from ..mtabusdata._data_fetch import get_bus_data, get_bus_stops, get_stop_data
 
 
 class TestGetBusData():
@@ -85,3 +85,58 @@ class TestGetBusStops():
         assert type(stops['stops']) == list
         assert len(stops['stops']) == 0
         assert stops['error'] == 'directionId is not valid'
+
+
+class TestGetStopData():
+    # Test get_stop_data function with a valid stop id.
+    # Should return a list with data about the stop given
+    def test_get_stop_data(self):
+        stop_data = get_stop_data('MTA_550943')
+
+        assert type(stop_data) == dict
+        assert type(stop_data['timestamp']) == str
+
+        stop = stop_data['stop']
+        assert type(stop) == dict
+        assert type(stop['id']) == str
+        assert type(stop['latitude']) == float
+        assert type(stop['longitude']) == float
+        assert type(stop['name']) == str
+        assert type(stop['direction']) == str
+
+        assert type(stop_data['next_buses']) == list
+        assert type(stop_data['situations']) == list
+
+
+        # Test one element from next_buses field if it exists
+        try:
+            onebus = stop_data['next_buses'][0]
+
+            assert type(onebus) == dict
+            assert type(onebus['bearing']) == float
+            assert type(onebus['destination']) == str
+            assert type(onebus['destination_id']) == str
+            assert type(onebus['direction_id']) == int
+            assert type(onebus['route_id']) == str
+            assert type(onebus['operator_id']) == str
+            assert type(onebus['origin_id']) == str
+            assert type(onebus['progress_rate']) == str
+            assert type(onebus['bus_name']) == str
+            assert type(onebus['location']) == dict
+            assert type(onebus['location']['latitude']) == float
+            assert type(onebus['location']['longitude']) == float
+        except IndexError:
+            pass
+
+
+        # Test one element from situations field if it exists
+        try:
+            one_situation = stop_data['situations'][0]
+
+            assert type(one_situation['consequences']) == list
+            assert type(one_situation['start_time']) == str
+            assert type(one_situation['description']) == str
+            assert type(one_situation['severity']) == str
+            assert type(one_situation['situation_number']) == str
+        except IndexError:
+            pass
