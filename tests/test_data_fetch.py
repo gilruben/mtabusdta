@@ -2,7 +2,7 @@ from ..mtabusdata._data_fetch import get_bus_data, get_bus_stops, get_stop_data
 
 
 class TestGetBusData():
-    # Test get_bus_data function with a valid MTA bus as argument
+    # Test get_bus_data function with a valid MTA bus as argument.
     def test_get_bus_data_valid_arg(self):
         bus_data = get_bus_data('q23')
 
@@ -55,9 +55,9 @@ class TestGetBusData():
 
 
 class TestGetBusStops():
-    # Test get_bus_stops function with a valid routeId and directionId
+    # Test get_bus_stops function with a valid routeId and directionId.
     # Returns a dictionary with a list of all the stops for the given routeId and
-    # directionId
+    # directionId.
     def test_get_bus_stops(self):
         stops = get_bus_stops('MTA NYCT_Q16', 1)
 
@@ -65,8 +65,8 @@ class TestGetBusStops():
         assert len(stops['stops']) > 0
 
 
-    # Test get_bus_stops function with a invalid routeId
-    # Returns a dictionary with an empty list and an error string
+    # Test get_bus_stops function with a invalid routeId.
+    # Returns a dictionary with an empty list and an error string.
     def test_get_bus_stops_bad_routeId(self):
         stops = get_bus_stops('MTA NYCT_Q', 1)
 
@@ -76,8 +76,8 @@ class TestGetBusStops():
         assert stops['error'] == 'routeId is not valid'
 
 
-    # Test get_bus_stops function with a invalid directionId
-    # Returns a dictionary with an empty list and an error string
+    # Test get_bus_stops function with a invalid directionId.
+    # Returns a dictionary with an empty list and an error string.
     def test_get_bus_stops_bad_directionId(self):
         stops = get_bus_stops('MTA NYCT_Q16', 9)
 
@@ -89,7 +89,7 @@ class TestGetBusStops():
 
 class TestGetStopData():
     # Test get_stop_data function with a valid stop id.
-    # Should return a list with data about the stop given
+    # Returns a list with data about the stop given.
     def test_get_stop_data(self):
         stop_data = get_stop_data('MTA_550943')
 
@@ -108,7 +108,7 @@ class TestGetStopData():
         assert type(stop_data['situations']) == list
 
 
-        # Test one element from next_buses field if it exists
+        # Test one element from next_buses field if it exists.
         try:
             onebus = stop_data['next_buses'][0]
 
@@ -129,7 +129,7 @@ class TestGetStopData():
             pass
 
 
-        # Test one element from situations field if it exists
+        # Test one element from situations field if it exists.
         try:
             one_situation = stop_data['situations'][0]
 
@@ -140,3 +140,11 @@ class TestGetStopData():
             assert type(one_situation['situation_number']) == str
         except IndexError:
             pass
+
+    # Test get_stop_data with an invalid string argument.
+    # Returns a dictionary with one key, 'error'.
+    def test_get_stop_data_bad_stop_id(self):
+        stop_data = get_stop_data('MTA')
+
+        assert type(stop_data) == dict
+        assert stop_data['error'] == 'Stop id is not valid'
