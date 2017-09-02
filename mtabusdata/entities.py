@@ -95,6 +95,8 @@ class Bus(object):
         return self.stops
 
 
+
+
 class Stop(object):
     def __init__(self, stop_id):
         data = get_stop_data(stop_id)
@@ -154,3 +156,13 @@ class Stop(object):
     @situations.setter
     def situatuations(self, situations):
         pass
+
+
+    # Updates the data in the Stop instance
+    def update(self):
+        data = get_stop_data(self._stop_id)
+
+        self._timestamp = data['timestamp']
+        self._next_buses = data['next_buses']
+        self._stop_info = data['stop']
+        self._situations = data['situations']
