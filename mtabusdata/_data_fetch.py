@@ -5,7 +5,7 @@ import requests, json
 # Returns a dictionary with data pertaining to that bus.
 #
 # If the bus given as argument matches an existing bus, the function will return
-# the bus name, routeId, and a list of directions in which the bus can go. Each
+# the bus name, route_id, and a list of directions in which the bus can go. Each
 # direction is a dictionary containing the destination(final stop) and
 # direction_id.
 #
@@ -39,7 +39,7 @@ def get_bus_data(bus):
         }
 
         bus_data['directions'] = [direction0, direction1]
-        bus_data['routeId'] = str(data['id'])
+        bus_data['route_id'] = str(data['id'])
         bus_data['bus'] = str(data['shortName'])
 
         return bus_data
@@ -78,13 +78,13 @@ def get_bus_data(bus):
         return { 'empty': True }
 
 
-# Receives string representing the routeId and an integer representing the
+# Receives string representing the route_id and an integer representing the
 # direction_id.
-# Returns a dictionary containing a list of all the stops for the given routeId
+# Returns a dictionary containing a list of all the stops for the given route_id
 #
-# If an incorrect routeId or direction_id is supplied, the dictionary returned
+# If an incorrect route_id or direction_id is supplied, the dictionary returned
 # will contain an empty list of stops and a string representing an error message
-def get_bus_stops(routeId, direction_id):
+def get_bus_stops(route_id, direction_id):
     stops = { 'stops': [] }
 
     if  direction_id != 0 and direction_id != 1:
@@ -92,15 +92,15 @@ def get_bus_stops(routeId, direction_id):
         return stops
 
 
-    routeId = routeId.replace(' ', '+')
-    url = 'http://bustime.mta.info/api/stops-on-route-for-direction?routeId=' + routeId + '&directionId=' + str(direction_id)
+    route_id = route_id.replace(' ', '+')
+    url = 'http://bustime.mta.info/api/stops-on-route-for-direction?routeId=' + route_id + '&directionId=' + str(direction_id)
     response = requests.get(url)
 
 
     try:
         stops = response.json()
     except ValueError:
-        stops['error'] = 'routeId is not valid'
+        stops['error'] = 'route_id is not valid'
 
     return stops
 

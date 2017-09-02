@@ -24,7 +24,7 @@ class Bus(object):
             self.direction_id = direction_id
             self._name = name.upper()
             self._directions = data['directions']
-            self._routeId = data['routeId']
+            self._route_id = data['route_id']
 
 
     # Getter and Setters for direction_id property
@@ -63,13 +63,13 @@ class Bus(object):
         pass
 
 
-    # Getter and Setter for routeId property
+    # Getter and Setter for route_id property
     @property
-    def routeId(self):
-        return self._routeId
+    def route_id(self):
+        return self._route_id
 
-    @routeId.setter
-    def routeId(self, routeId):
+    @route_id.setter
+    def route_id(self, route_id):
         pass
 
 
@@ -86,7 +86,7 @@ class Bus(object):
         # If no stops were previously saved or if the saved stops do not
         # correspond to the saved direction_id, get and save stop data from
         # bustime api.
-        stops = get_bus_stops(self.routeId, self.direction_id)['stops']
+        stops = get_bus_stops(self.route_id, self.direction_id)['stops']
         self.stops = {
           'direction_id': self.direction_id,
           'stops': stops
