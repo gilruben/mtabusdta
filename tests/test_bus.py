@@ -19,27 +19,27 @@ class TestBusName():
 
 
 class TestBusDirectionId():
-    # Test the directionId variable of the Bus class when the class was
-    # initialized without a directionId
-    def test_directionId_not_given(self):
+    # Test the direction_id variable of the Bus class when the class was
+    # initialized without a direction_id
+    def test_direction_id_not_given(self):
         new_bus = Bus('Q23')
-        assert new_bus.directionId == 0
+        assert new_bus.direction_id == 0
 
-    # Test the directionId variable of the Bus class when the class was
-    # initialized with a valid int as directionId
-    def test_directionId_given(self):
+    # Test the direction_id variable of the Bus class when the class was
+    # initialized with a valid int as direction_id
+    def test_direction_id_given(self):
         new_bus = Bus('Q23', 1)
-        assert new_bus.directionId == 1
+        assert new_bus.direction_id == 1
 
-    # Test the directionId variable of the Bus class when the class was
-    # initialized with an invalid int as directionId
-    def test_directionId_incorrect_int(self):
+    # Test the direction_id variable of the Bus class when the class was
+    # initialized with an invalid int as direction_id
+    def test_direction_id_incorrect_int(self):
         with raises(ValueError):
             raise Bus('Q23', 9)
 
-    # Test the directionId variable of the Bus class when the class was
-    # initialized with an non int variable as directionId
-    def test_directionId_incorrect_type(self):
+    # Test the direction_id variable of the Bus class when the class was
+    # initialized with an non int variable as direction_id
+    def test_direction_id_incorrect_type(self):
         with raises(TypeError):
             raise Bus('Q23', '9')
 
@@ -65,16 +65,16 @@ class TestBusInitialization():
     def test_bus(self):
         new_bus = Bus('Q23', 1)
 
-        assert new_bus.directionId == 1
+        assert new_bus.direction_id == 1
         assert type(new_bus.name) == str
         assert type(new_bus.directions) == list
         assert len(new_bus.directions) == 2
         assert type(new_bus.directions[0]) == dict
         assert type(new_bus.directions[0]["destination"]) == str
-        assert type(new_bus.directions[0]["directionId"]) == int
+        assert type(new_bus.directions[0]["direction_id"]) == int
         assert type(new_bus.directions[1]) == dict
         assert type(new_bus.directions[0]["destination"]) == str
-        assert type(new_bus.directions[0]["directionId"]) == int
+        assert type(new_bus.directions[0]["direction_id"]) == int
         assert type(new_bus.routeId) == str
 
 
@@ -85,7 +85,7 @@ class TestBusGetStops():
 
         assert type(stops) == dict
         assert len(stops.keys()) == 2
-        assert type(stops['directionId']) == int
-        assert stops['directionId'] == 0
+        assert type(stops['direction_id']) == int
+        assert stops['direction_id'] == 0
         assert type(stops['stops']) == list
         assert len(stops['stops']) > 0

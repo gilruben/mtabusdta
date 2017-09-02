@@ -12,10 +12,10 @@ class TestGetBusData():
         assert len(bus_data["directions"]) == 2
         assert type(bus_data["directions"][0]) == dict
         assert type(bus_data["directions"][0]["destination"]) == str
-        assert type(bus_data["directions"][0]["directionId"]) == int
+        assert type(bus_data["directions"][0]["direction_id"]) == int
         assert type(bus_data["directions"][1]) == dict
         assert type(bus_data["directions"][0]["destination"]) == str
-        assert type(bus_data["directions"][0]["directionId"]) == int
+        assert type(bus_data["directions"][0]["direction_id"]) == int
         assert type(bus_data["routeId"]) == str
         assert type(bus_data["bus"]) == str
 
@@ -36,10 +36,10 @@ class TestGetBusData():
         assert len(suggested_data["directions"]) == 2
         assert type(suggested_data["directions"][0]) == dict
         assert type(suggested_data["directions"][0]["destination"]) == str
-        assert type(suggested_data["directions"][0]["directionId"]) == int
+        assert type(suggested_data["directions"][0]["direction_id"]) == int
         assert type(suggested_data["directions"][1]) == dict
         assert type(suggested_data["directions"][0]["destination"]) == str
-        assert type(suggested_data["directions"][0]["directionId"]) == int
+        assert type(suggested_data["directions"][0]["direction_id"]) == int
         assert type(suggested_data["routeId"]) == str
         assert type(suggested_data["bus"]) == str
 
@@ -56,9 +56,9 @@ class TestGetBusData():
 
 
 class TestGetBusStops():
-    # Test get_bus_stops function with a valid routeId and directionId.
+    # Test get_bus_stops function with a valid routeId and direction_id.
     # Returns a dictionary with a list of all the stops for the given routeId and
-    # directionId.
+    # direction_id.
     def test_get_bus_stops(self):
         stops = get_bus_stops('MTA NYCT_Q16', 1)
 
@@ -77,15 +77,15 @@ class TestGetBusStops():
         assert stops['error'] == 'routeId is not valid'
 
 
-    # Test get_bus_stops function with a invalid directionId.
+    # Test get_bus_stops function with a invalid direction_id.
     # Returns a dictionary with an empty list and an error string.
-    def test_get_bus_stops_bad_directionId(self):
+    def test_get_bus_stops_bad_direction_id(self):
         stops = get_bus_stops('MTA NYCT_Q16', 9)
 
         assert len(stops.keys()) == 2
         assert type(stops['stops']) == list
         assert len(stops['stops']) == 0
-        assert stops['error'] == 'directionId is not valid'
+        assert stops['error'] == 'direction_id is not valid'
 
 
 class TestGetStopData():

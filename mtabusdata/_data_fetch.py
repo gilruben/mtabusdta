@@ -7,7 +7,7 @@ import requests, json
 # If the bus given as argument matches an existing bus, the function will return
 # the bus name, routeId, and a list of directions in which the bus can go. Each
 # direction is a dictionary containing the destination(final stop) and
-# directionId.
+# direction_id.
 #
 # If the bus given as argument does not match an existing bus, the bustime
 # api will attempt to give suggestions. If suggestions are available, the
@@ -24,18 +24,18 @@ def get_bus_data(bus):
     # the suggestions list. Both the matches and suggestions lists can be found
     # in the searchResults in the response from the api request below.
     # Returns a compacted version of the bus data. Compacted version contains
-    # destinations, directionIds, Id, and shortName. This data is necessary.
+    # destinations, direction_ids, Id, and shortName. This data is necessary.
     def compact_bus_data(data):
         bus_data = {}
         directions = data['directions']
 
         direction0 = {
             'destination': str(directions[0]['destination']),
-            'directionId': int(directions[0]['directionId'])
+            'direction_id': int(directions[0]['directionId'])
         }
         direction1 = {
             'destination': str(directions[1]['destination']),
-            'directionId': int(directions[1]['directionId'])
+            'direction_id': int(directions[1]['directionId'])
         }
 
         bus_data['directions'] = [direction0, direction1]
@@ -79,21 +79,21 @@ def get_bus_data(bus):
 
 
 # Receives string representing the routeId and an integer representing the
-# directionId.
+# direction_id.
 # Returns a dictionary containing a list of all the stops for the given routeId
 #
-# If an incorrect routeId or directionId is supplied, the dictionary returned
+# If an incorrect routeId or direction_id is supplied, the dictionary returned
 # will contain an empty list of stops and a string representing an error message
-def get_bus_stops(routeId, directionId):
+def get_bus_stops(routeId, direction_id):
     stops = { 'stops': [] }
 
-    if  directionId != 0 and directionId != 1:
-        stops['error'] = 'directionId is not valid'
+    if  direction_id != 0 and direction_id != 1:
+        stops['error'] = 'direction_id is not valid'
         return stops
 
 
     routeId = routeId.replace(' ', '+')
-    url = 'http://bustime.mta.info/api/stops-on-route-for-direction?routeId=' + routeId + '&directionId=' + str(directionId)
+    url = 'http://bustime.mta.info/api/stops-on-route-for-direction?routeId=' + routeId + '&directionId=' + str(direction_id)
     response = requests.get(url)
 
 

@@ -3,7 +3,7 @@ import copy
 from _data_fetch import get_bus_data, get_bus_stops, get_stop_data
 
 class Bus(object):
-    def __init__(self, name = '', directionId = 0):
+    def __init__(self, name = '', direction_id = 0):
         data = get_bus_data(name)
         is_empty = data.get('empty')
         suggestions = data.get('suggestions')
@@ -15,32 +15,32 @@ class Bus(object):
             # Extracts the name of the buses and puts them in a list
             name_suggestions = map(lambda suggestion: suggestion['bus'], suggestions)
             raise ValueError('Not a valid MTA bus name. Suggestions: ' + ', '.join(name_suggestions))
-        elif type(directionId) != int:
-            # Checks that directionId is either 0 or 1, othewise an error is thrown
-            raise TypeError('directionId must an int')
-        elif directionId != 0 and directionId != 1:
-            raise ValueError('directionId must be 0 or 1')
+        elif type(direction_id) != int:
+            # Checks that direction_id is either 0 or 1, othewise an error is thrown
+            raise TypeError('direction_id must an int')
+        elif direction_id != 0 and direction_id != 1:
+            raise ValueError('direction_id must be 0 or 1')
         else:
-            self.directionId = directionId
+            self.direction_id = direction_id
             self._name = name.upper()
             self._directions = data['directions']
             self._routeId = data['routeId']
 
 
-    # Getter and Setters for directionId property
+    # Getter and Setters for direction_id property
     @property
-    def directionId(self):
-        return self._directionId
+    def direction_id(self):
+        return self._direction_id
 
-    @directionId.setter
-    def directionId(self, directionId):
-        if type(directionId) != int:
-            # Checks that directionId is either 0 or 1, othewise an error is thrown
-            raise TypeError('directionId must an int')
-        elif directionId != 0 and directionId != 1:
-            raise ValueError('directionId must be 0 or 1')
+    @direction_id.setter
+    def direction_id(self, direction_id):
+        if type(direction_id) != int:
+            # Checks that direction_id is either 0 or 1, othewise an error is thrown
+            raise TypeError('direction_id must an int')
+        elif direction_id != 0 and direction_id != 1:
+            raise ValueError('direction_id must be 0 or 1')
         else:
-            self._directionId = directionId
+            self._direction_id = direction_id
 
 
     # Getter and Setter for name property
@@ -77,18 +77,18 @@ class Bus(object):
         # Will catch the error thrown if stops is not an attribute of self.
         try:
             # If stops were previously saved, and those stops correspond to the
-            # directionId saved, return the stops.
-            if self.stops and (self.stops.directionId == self.directionId):
+            # direction_id saved, return the stops.
+            if self.stops and (self.stops.direction_id == self.direction_id):
                 return self.stops
         except AttributeError:
             pass
 
         # If no stops were previously saved or if the saved stops do not
-        # correspond to the saved directionId, get and save stop data from
+        # correspond to the saved direction_id, get and save stop data from
         # bustime api.
-        stops = get_bus_stops(self.routeId, self.directionId)['stops']
+        stops = get_bus_stops(self.routeId, self.direction_id)['stops']
         self.stops = {
-          'directionId': self.directionId,
+          'direction_id': self.direction_id,
           'stops': stops
         }
 
