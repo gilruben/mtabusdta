@@ -134,6 +134,7 @@ def get_stop_data(stop_id):
               'origin_id': str(data['OriginRef']),
               'progress_rate': str(data['ProgressRate']),
               'bus_name': str(data['PublishedLineName']),
+              'vehicle_id': str(data['VehicleRef']),
               'location': {
                 'latitude': location['Latitude'],
                 'longitude': location['Longitude']
