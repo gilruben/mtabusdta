@@ -126,6 +126,7 @@ class TestGetStopData():
             assert type(onebus['location']) == dict
             assert type(onebus['location']['latitude']) == float
             assert type(onebus['location']['longitude']) == float
+            assert type(onebus['vehicle_id']) == str
         except IndexError:
             pass
 
