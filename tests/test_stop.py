@@ -1,4 +1,5 @@
 from pytest import raises
+from time import sleep
 from ..mtabusdata.entities import Stop
 
 class TestStopId():
@@ -54,3 +55,15 @@ class TestReassigningProperties():
         situations = new_stop.situations
 
         assert situations is not new_stop.situations
+
+
+class TestUpdateMethod():
+    # Test that data changes after update method is called
+    def test_update_method(self):
+        new_stop = Stop('MTA_501248')
+        timestamp = new_stop.timestamp
+
+        sleep(1)
+        new_stop.update()
+
+        assert timestamp != new_stop.timestamp
