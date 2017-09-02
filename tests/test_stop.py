@@ -37,6 +37,7 @@ class TestReassigningProperties():
         assert next_buses is not new_stop.next_buses
         assert next_buses[0] is not new_stop.next_buses[0]
 
+
     # Test reassigning stop_info.
     # Should not able to reassign the original stop_info.
     def test_reassign_stop_info(self):
@@ -44,3 +45,12 @@ class TestReassigningProperties():
         stop_info = new_stop.stop_info
 
         assert stop_info is not new_stop.stop_info
+
+
+    # Test reassigning situations.
+    # Should not able to reassign the original situations.
+    def test_reassign_situations(self):
+        new_stop = Stop('MTA_501248')
+        situations = new_stop.situations
+
+        assert situations is not new_stop.situations
